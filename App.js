@@ -1,14 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import {
+  Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon,
+  Title
+} from "native-base";
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Container>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>BoardGamer</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Icon name="menu" />
+            </Button>
+          </Right>
+        </Header>
+      </Container>
     );
   }
 }
