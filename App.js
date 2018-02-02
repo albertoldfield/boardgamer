@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Expo from "expo";
-import HomeScreen from "./app/scenes/Home/index.js";
+import React, { Component } from 'react';
+import Expo from 'expo';
+import HomeScreen from './app/scenes/Home/index.js';
 import {
   Container,
   Header,
@@ -15,7 +15,8 @@ import {
   CardItem,
   List,
   Thumbnail
-} from "native-base";
+} from 'native-base';
+
 
 export default class App extends Component {
   constructor() {
@@ -26,20 +27,12 @@ export default class App extends Component {
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      Ionicons: require("native-base/Fonts/Ionicons.ttf"),
-      FontAwesome: require("native-base/Fonts/FontAwesome.ttf")
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      Ionicons: require('native-base/Fonts/Ionicons.ttf'),
+      FontAwesome: require('native-base/Fonts/FontAwesome.ttf')
     });
-/*
-    axios
-      .get(
-        "https://bgg-json.azurewebsites.net/collection/oldfielda?grouped=true"
-      )
-      .then(response => {
-        this.setState({ boardgames: response.data });
-      });
-*/
+
     this.setState({ isReady: true });
   }
 
