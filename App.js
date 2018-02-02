@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import Expo from "expo";
+import HomeScreen from "./app/scenes/Home/index.js";
 import {
   Container,
   Header,
@@ -10,71 +11,42 @@ import {
   Icon,
   Title,
   Content,
-  ListItem,
+  Card,
+  CardItem,
   List,
   Thumbnail
 } from "native-base";
-import axios from "axios";
-import { Parser } from "react-native-xml2js";
 
-export default class App extends React.Component {
-  state = { boardgames: [] };
-
-  componentWillMount() {
-    axios
-      .get("https://www.boardgamegeek.com/xmlapi/boardgame/2536?")
-      .then(response => {
-        var parser = new Parser();
-        parser.parseString(response.data, (error, result) => {
-          console.log(result.boardgames.boardgame[0]);
-          this.setState({ boardgames: result.boardgames.boardgame });
-        });
-      });
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isReady: false
+    };
   }
-
-  renderBoardgames() {
-    return this.state.boardgames.map(boardgame => (
-      <ListItem key={boardgame.$.objectid}>
-        <Thumbnail square size={80} source={{ uri: boardgame.thumbnail }} />
-        <Body>
-          <Text>{boardgame.name}</Text>
-          <Text note>{boardgame.boardgamehonor}</Text>
-        </Body>
-      </ListItem>
-    ));
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("native-base/Fonts/Ionicons.ttf"),
+      FontAwesome: require("native-base/Fonts/FontAwesome.ttf")
+    });
+/*
+    axios
+      .get(
+        "https://bgg-json.azurewebsites.net/collection/oldfielda?grouped=true"
+      )
+      .then(response => {
+        this.setState({ boardgames: response.data });
+      });
+*/
+    this.setState({ isReady: true });
   }
 
   render() {
-    return (
-      <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>BoardGamer</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Right>
-        </Header>
-        <Content>
-          <List>{this.renderBoardgames()}</List>
-        </Content>
-      </Container>
-    );
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
+    return <HomeScreen />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

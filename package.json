@@ -29,6 +29,6 @@
     "native-base": "^2.3.7",
     "react": "16.2.0",
     "react-native": "0.52.2",
-    "react-native-xml2js": "^1.0.3"
+    "react-navigation": "^1.0.0-beta.27"
   }
 }
